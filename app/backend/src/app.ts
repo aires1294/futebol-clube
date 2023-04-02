@@ -14,6 +14,7 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
 
     this.app.get('/teams', TeamsController.getTeams);
+    this.app.get('/teams/:id', TeamsController.getTeamById);
   }
 
   private config():void {

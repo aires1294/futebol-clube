@@ -4,7 +4,7 @@
 
 // const TeamRouter = Router();
 
-// const teamsController = TeamsController();
+// const teamsController = new TeamsController();
 
 // TeamRouter.get('/', (req: Request, res: Response) => teamsController.getTeams(req, res));
 
