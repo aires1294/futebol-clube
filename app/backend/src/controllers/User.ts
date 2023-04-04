@@ -12,7 +12,7 @@ export default class UsersController {
       return res.status(status).json({ message });
     }
     const token = message;
-    return res.status(200).json({ message: token });
+    return res.status(200).json({ token });
   }
 }
 

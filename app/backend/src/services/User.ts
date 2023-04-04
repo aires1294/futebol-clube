@@ -11,7 +11,8 @@ import ValidationToken from '../Authentication/token';
 // }
 interface UsersData {
   status: number | null;
-  message: { message: string } | { token: string };
+  message: string;
+  token?: string;
 }
 
 // const users = new Users();
@@ -22,14 +23,14 @@ export default class UsersService {
   static async login(email: string, password: string): Promise<UsersData> {
     const result = await Users.findOne({ where: { email } });
     if (!result) {
-      return { status: 401, message: { message: 'Invalid email or password' } };
+      return { status: 401, message: 'Invalid email or password' };
     }
     const verifyPassword = bcrypt.compareSync(password, result.password);
     if (!verifyPassword) {
-      return { status: 401, message: { message: 'Invalid email or password' } };
+      return { status: 401, message: 'Invalid email or password' };
     }
 
     const token = new ValidationToken().createToken(result.dataValues);
-    return { status: 200, message: { token } };
+    return { status: null, message: token };
   }
 }
