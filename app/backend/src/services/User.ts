@@ -29,6 +29,8 @@ export default class UsersService {
     if (!verifyPassword) {
       return { status: 401, message: 'Invalid email or password' };
     }
+    const test = 0;
+    console.log(test);
 
     const token = new ValidationToken().createToken(result.dataValues);
     return { status: null, message: token };
