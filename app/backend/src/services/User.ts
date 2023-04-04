@@ -10,13 +10,15 @@ import ValidationToken from '../Authentication/token';
 //   password: string;
 // }
 interface UsersData {
-  status: number;
+  status: number | null;
   message: { message: string } | { token: string };
 }
 
 // const users = new Users();
 
 export default class UsersService {
+  // private _users = Users;
+
   static async login(email: string, password: string): Promise<UsersData> {
     const result = await Users.findOne({ where: { email } });
     if (!result) {

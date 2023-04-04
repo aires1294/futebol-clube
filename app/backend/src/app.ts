@@ -13,10 +13,6 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
-
-    this.app.get('/teams', TeamsController.getTeams);
-    this.app.get('/teams/:id', TeamsController.getTeamById);
-    this.app.post('/login', UsersController.login);
   }
 
   private config():void {
@@ -29,6 +25,9 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.get('/teams', TeamsController.getTeams);
+    this.app.get('/teams/:id', TeamsController.getTeamById);
+    this.app.post('/login', UsersController.login);
   }
 
   public start(PORT: string | number):void {

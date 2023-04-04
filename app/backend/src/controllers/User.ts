@@ -7,10 +7,12 @@ import UsersService from '../services/User';
 export default class UsersController {
   static async login(req: Request, res: Response): Promise<Response | void> {
     const { email, password } = req.body;
-    const user = await UsersService.login(email, password);
-    console.log('testando tokenController', user);
-
-    res.status(200).json({ user });
+    const { status, message } = await UsersService.login(email, password);
+    if (status) {
+      return res.status(status).json({ message });
+    }
+    const token = message;
+    return res.status(200).json({ message: token });
   }
 }
 

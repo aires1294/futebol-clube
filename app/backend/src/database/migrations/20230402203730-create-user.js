@@ -9,9 +9,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      userName: {
+      username: {
         allowNull: false,
-        field: 'username',
         type: Sequelize.STRING
       },
       role: {
