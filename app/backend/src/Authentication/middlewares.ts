@@ -37,24 +37,10 @@ const validatePassword = async (req: Request, res: Response, next: NextFunction)
   }
   next();
 };
-
-// const validateAuth = async (req: Request, res: Response, next: NextFunction) => {
-//   const { authorization } = req.headers;
-//   const userController = new UsersController();
-//   const token = userController;
-//   if (!authorization) {
-//     return res.status(401).json({ message: 'Token not found' });
-//   }
-//   if (token !== authorization) {
-//     return res.status(401).json({ message: 'Token not found' });
-//   }
-//   next();
-// };
 const secret = process.env.JWT_SECRET || 'flamengo';
 
 const validateAuth = async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
-  // const token = req.header('authorization');
   if (!authorization) {
     return res.status(401).json({ message: 'Token not found' });
   }
@@ -63,7 +49,6 @@ const validateAuth = async (req: Request, res: Response, next: NextFunction) => 
     // -----------------------------------------------------------------------------------
     // res.locals => LOCAL PARA ARMAZENAR informações, ao colocar no body pode dar problema
     // -----------------------------------------------------------------------------------
-
     res.locals.verifyToken = verifyToken;
   } catch (e) {
     return res.status(401).json({ message: 'Token must be a valid token' });
