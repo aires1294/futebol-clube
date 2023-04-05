@@ -27,10 +27,7 @@ export default class ValidationToken {
       console.log('secret', this.secret);
 
       const verifyToken = jwt.verify(authorization, this.secret);
-      //   const verifyToken = jwt.verify(authorization.split(' ')[1], this.secret);
-
       res.locals.verifyToken = verifyToken;
-      // console.log('hoje', verifyToken);
     } catch (e) {
       return res.status(401).json({ message: 'Token must be a valid token' });
     }

@@ -13,10 +13,10 @@ export default class UsersController {
   }
 
   static async getRole(req: Request, res: Response): Promise<Response | void> {
-    // console.log('libertadores3', res.locals.verifyToken.data.id.role);
+    // -----------------------------------------------------------------------------------
+    // res.locals => LOCAL PARA ARMAZENAR informações, ao colocar no body pode dar problema
+    // -----------------------------------------------------------------------------------
     const userRole = res.locals.verifyToken.data.id.role;
-
-    // const result = await UsersService.getRole(res.locals.verifyToken.id);
     return res.status(200).json({ role: userRole });
   }
 }

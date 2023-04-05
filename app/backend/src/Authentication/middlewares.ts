@@ -60,10 +60,11 @@ const validateAuth = async (req: Request, res: Response, next: NextFunction) => 
   }
   try {
     const verifyToken = jwt.verify(authorization, secret);
-    //   const verifyToken = jwt.verify(authorization.split(' ')[1], this.secret);
+    // -----------------------------------------------------------------------------------
+    // res.locals => LOCAL PARA ARMAZENAR informações, ao colocar no body pode dar problema
+    // -----------------------------------------------------------------------------------
 
     res.locals.verifyToken = verifyToken;
-    console.log(res.locals.verifyToken.data.id.role);
   } catch (e) {
     return res.status(401).json({ message: 'Token must be a valid token' });
   }
