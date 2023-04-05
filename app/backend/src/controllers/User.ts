@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-// import ValidationToken from '../Authentication/token';
 import UsersService from '../services/User';
-
-// const validationToken = new ValidationToken();
 
 export default class UsersController {
   static async login(req: Request, res: Response): Promise<Response | void> {
@@ -14,13 +11,12 @@ export default class UsersController {
     const token = message;
     return res.status(200).json({ token });
   }
+
+  static async getRole(req: Request, res: Response): Promise<Response | void> {
+    // console.log('libertadores3', res.locals.verifyToken.data.id.role);
+    const userRole = res.locals.verifyToken.data.id.role;
+
+    // const result = await UsersService.getRole(res.locals.verifyToken.id);
+    return res.status(200).json({ role: userRole });
+  }
 }
-
-// const login = async (req, res) => {
-//     const { email, password } = req.body;
-//     const { dataValues: { id } } = await userService.login(email, password);
-//     // console.log('aquiiii agora', user);
-//     const token = createToken(id);
-
-//    return res.status(200).json({ token });
-// };

@@ -1,7 +1,11 @@
 import * as express from 'express';
 import TeamsController from './controllers/Teams';
 import UsersController from './controllers/User';
-import { validateLoginBody, validateEmail, validatePassword } from './Authentication/middlewares';
+import { validateLoginBody,
+  validateEmail,
+  validatePassword,
+  validateAuth } from './Authentication/middlewares';
+// import ValidationToken from './Authentication/token';
 // import TeamRouter from './Router/Teams';
 
 class App {
@@ -35,6 +39,7 @@ class App {
       validatePassword,
       UsersController.login,
     );
+    this.app.get('/login/role', validateAuth, UsersController.getRole);
   }
 
   public start(PORT: string | number):void {
