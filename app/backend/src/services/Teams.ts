@@ -1,6 +1,4 @@
-// import { Model } from 'sequelize';
 import Teams from '../database/models/Teams';
-// import sequelize = require('sequelize');
 
 interface TeamsData {
   id: number;

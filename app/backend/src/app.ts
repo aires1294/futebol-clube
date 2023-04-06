@@ -5,6 +5,7 @@ import { validateLoginBody,
   validateEmail,
   validatePassword,
   validateAuth } from './Authentication/middlewares';
+import MatchesController from './controllers/Matches';
 // import ValidationToken from './Authentication/token';
 // import TeamRouter from './Router/Teams';
 
@@ -40,6 +41,7 @@ class App {
       UsersController.login,
     );
     this.app.get('/login/role', validateAuth, UsersController.getRole);
+    this.app.get('/matches', MatchesController.getMatches);
   }
 
   public start(PORT: string | number):void {
