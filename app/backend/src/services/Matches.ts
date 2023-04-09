@@ -1,3 +1,4 @@
+import Teams from '../database/models/Teams';
 import Matches from '../database/models/Matches';
 
 // interface MatchesData {
@@ -15,9 +16,30 @@ import Matches from '../database/models/Matches';
 //   }
 // }
 
+// export default class MatchesService {
+//   static async getMatches(): Promise<Matches[]> {
+//     const matches = await Matches.findAll();
+//     console.log('service', matches);
+//     return matches;
+//   }
+// }
+
 export default class MatchesService {
   static async getMatches(): Promise<Matches[]> {
-    const matches = await Matches.findAll();
+    const matches = await Matches.findAll({
+      include: [
+        {
+          model: Teams,
+          as: 'homeTeam',
+          attributes: ['teamName'],
+        },
+        {
+          model: Teams,
+          as: 'awayTeam',
+          attributes: ['teamName'],
+        },
+      ],
+    });
     console.log('service', matches);
     return matches;
   }

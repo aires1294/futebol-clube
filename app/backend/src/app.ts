@@ -1,5 +1,5 @@
 import * as express from 'express';
-import TeamsController from './controllers/Teams';
+// import TeamsController from './controllers/Teams';
 import UsersController from './controllers/User';
 import { validateLoginBody,
   validateEmail,
@@ -7,7 +7,7 @@ import { validateLoginBody,
   validateAuth } from './Authentication/middlewares';
 import MatchesController from './controllers/Matches';
 // import ValidationToken from './Authentication/token';
-// import TeamRouter from './Router/Teams';
+import TeamRouter from './Router/Teams';
 
 class App {
   public app: express.Express;
@@ -31,8 +31,7 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.get('/teams', TeamsController.getTeams);
-    this.app.get('/teams/:id', TeamsController.getTeamById);
+    this.app.use('/teams', TeamRouter);
     this.app.post(
       '/login',
       validateLoginBody,
