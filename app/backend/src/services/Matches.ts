@@ -25,8 +25,10 @@ import Matches from '../database/models/Matches';
 // }
 
 export default class MatchesService {
-  static async getMatches(): Promise<Matches[]> {
+  static async getMatches(inProgress?: boolean): Promise<Matches[]> {
+    const filteredMatches = inProgress ? { inProgress } : { inProgress: false };
     const matches = await Matches.findAll({
+      where: filteredMatches,
       include: [
         {
           model: Teams,
@@ -40,7 +42,7 @@ export default class MatchesService {
         },
       ],
     });
-    console.log('service', matches);
+    // console.log('service', matches);
     return matches;
   }
 }
