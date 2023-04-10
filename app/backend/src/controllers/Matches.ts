@@ -3,12 +3,17 @@ import MatchesService from '../services/Matches';
 
 export default class MatchesController {
   static async getMatches(req: Request, res: Response): Promise< Response | void> {
-    try {
-      const { inProgress } = req.query;
-      const matches = await MatchesService.getMatches(inProgress === 'true');
+    const { inProgress } = req.query;
+    console.log('estou aqui', inProgress);
+    if (inProgress === undefined) {
+      const matches = await MatchesService.getAllMatches();
       return res.status(200).json(matches);
-    } catch (error) {
-      return res.status(400).json({ message: 'Internal server error' });
     }
+
+    const matches = await MatchesService
+      // .getMatches(inProgress as unknown as boolean);
+      .getMatches(inProgress === 'true');
+
+    return res.status(200).json(matches);
   }
 }
