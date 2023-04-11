@@ -16,4 +16,10 @@ export default class MatchesController {
 
     return res.status(200).json(matches);
   }
+
+  static async endMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    await MatchesService.endMatch(Number(id));
+    return res.status(200).json({ message: 'Finished' });
+  }
 }

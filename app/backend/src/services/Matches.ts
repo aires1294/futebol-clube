@@ -43,4 +43,9 @@ export default class MatchesService {
     });
     return matches;
   }
+
+  static async endMatch(id: number) {
+    const match = await Matches.update({ inProgress: false }, { where: { id } });
+    return match;
+  }
 }
