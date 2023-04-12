@@ -23,12 +23,22 @@ export default class MatchesController {
     return res.status(200).json({ message: 'Finished' });
   }
 
+  // DUAS MANEIRAS DE FAZER O REQ 18
+
+  // static async updateMatch(req: Request, res: Response) {
+  //   const { id } = req.params;
+  //   // const { homeTeamGoals, awayTeamGoals } = req.body;
+  //   const updatedMatche = await MatchesService
+  //     .updateMatch(Number(id), req.body);
+  //   console.log('estou aquiiii', updatedMatche);
+  //   return res.status(200).json({ message: 'changed stage' });
+  // }
   static async updateMatch(req: Request, res: Response) {
     const { id } = req.params;
     const { homeTeamGoals, awayTeamGoals } = req.body;
     const updatedMatche = await MatchesService
       .updateMatch(Number(id), homeTeamGoals, awayTeamGoals);
     console.log('estou aquiiii', updatedMatche);
-    return res.status(200).json(updatedMatche);
+    return res.status(200).json({ message: 'changed stage' });
   }
 }

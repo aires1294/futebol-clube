@@ -1,6 +1,11 @@
 import Teams from '../database/models/Teams';
 import Matches from '../database/models/Matches';
 
+// interface IEditMatch {
+//   homeTeamGoals: number;
+//   awayTeamsGoals: number;
+// }
+
 export default class MatchesService {
   static async getAllMatches(): Promise<Matches[]> {
     const matches = await Matches.findAll({
@@ -49,7 +54,14 @@ export default class MatchesService {
     return match;
   }
 
-  static async updateMatch(id: number, homeTeamGoals: any, awayTeamGoals: any) {
+  // DUAS MANEIRAS DE FAZER O REQ 18
+
+  // static async updateMatch(id: number, body: IEditMatch) {
+  //   const match = await Matches.update({ homeTeamGoals: body.homeTeamGoals,
+  //     awayTeamGoals: body.awayTeamsGoals }, { where: { id } });
+  //   return match;
+  // }
+  static async updateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number) {
     const match = await Matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
     return match;
   }
