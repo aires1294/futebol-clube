@@ -9,6 +9,8 @@ const MatchesRouter = Router();
 MatchesRouter.get('/', (req: Request, res: Response) => MatchesController.getMatches(req, res));
 MatchesRouter.patch('/:id/finish', validateAuth, (req: Request, res: Response) => MatchesController
   .endMatch(req, res));
+MatchesRouter.patch('/:id', validateAuth, (req: Request, res: Response) => MatchesController
+  .updateMatch(req, res));
 
 // TeamRouter.get('/:id', (req: Request, res: Response) => TeamsController.getTeamById(req, res));
 
