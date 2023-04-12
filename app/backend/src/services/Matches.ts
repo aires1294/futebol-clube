@@ -10,6 +10,8 @@ interface ICreateMatch {
   awayTeamId: number;
   homeTeamGoals: number;
   awayTeamGoals: number;
+  type?: string;
+  message?: string;
 }
 
 export default class MatchesService {
@@ -72,11 +74,17 @@ export default class MatchesService {
     return match;
   }
 
-  static async createMatch(partida: ICreateMatch): Promise<Matches> {
+  static async createMatch(partida: ICreateMatch):
+  // Promise<Matches | { type: string; message: string }> {
+  Promise<object> {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = partida;
-    const match = await Matches
-      .create({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true });
-    console.log('testando createMatch', match);
-    return match;
+    try {
+      const match = await Matches
+        .create({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true });
+      console.log('testando createMatch', match);
+      return match;
+    } catch (e) {
+      return { type: 'error', message: 'Server error' };
+    }
   }
 }

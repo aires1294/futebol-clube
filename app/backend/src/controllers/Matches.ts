@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import Teams from '../database/models/Teams';
 import MatchesService from '../services/Matches';
 
 export default class MatchesController {
@@ -42,7 +43,16 @@ export default class MatchesController {
   }
 
   static async createMatch(req: Request, res: Response) {
-    // const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+    const { homeTeamId, awayTeamId } = req.body;
+    if (homeTeamId === awayTeamId) {
+      return res.status(422)
+        .json({ message: 'It is not possible to create a match with two equal teams' });
+    }
+    const htid = await Teams.findByPk(homeTeamId);
+    const atid = await Teams.findByPk(awayTeamId);
+    if (!htid || !atid) {
+      return res.status(404).json({ message: 'There is no team with such id!' });
+    }
     const newMatch = await MatchesService.createMatch(req.body);
     return res.status(201).json(newMatch);
   }
