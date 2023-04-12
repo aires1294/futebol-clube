@@ -27,7 +27,6 @@ export default class MatchesController {
 
   // static async updateMatch(req: Request, res: Response) {
   //   const { id } = req.params;
-  //   // const { homeTeamGoals, awayTeamGoals } = req.body;
   //   const updatedMatche = await MatchesService
   //     .updateMatch(Number(id), req.body);
   //   console.log('estou aquiiii', updatedMatche);
@@ -40,5 +39,11 @@ export default class MatchesController {
       .updateMatch(Number(id), homeTeamGoals, awayTeamGoals);
     console.log('estou aquiiii', updatedMatche);
     return res.status(200).json({ message: 'changed stage' });
+  }
+
+  static async createMatch(req: Request, res: Response) {
+    // const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+    const newMatch = await MatchesService.createMatch(req.body);
+    return res.status(201).json(newMatch);
   }
 }

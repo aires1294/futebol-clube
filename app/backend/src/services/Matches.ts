@@ -5,6 +5,12 @@ import Matches from '../database/models/Matches';
 //   homeTeamGoals: number;
 //   awayTeamsGoals: number;
 // }
+interface ICreateMatch {
+  homeTeamId: number;
+  awayTeamId: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+}
 
 export default class MatchesService {
   static async getAllMatches(): Promise<Matches[]> {
@@ -63,6 +69,14 @@ export default class MatchesService {
   // }
   static async updateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number) {
     const match = await Matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return match;
+  }
+
+  static async createMatch(partida: ICreateMatch): Promise<Matches> {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = partida;
+    const match = await Matches
+      .create({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true });
+    console.log('testando createMatch', match);
     return match;
   }
 }
