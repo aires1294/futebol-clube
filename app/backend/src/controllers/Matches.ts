@@ -48,9 +48,9 @@ export default class MatchesController {
       return res.status(422)
         .json({ message: 'It is not possible to create a match with two equal teams' });
     }
-    const htid = await Teams.findByPk(homeTeamId);
-    const atid = await Teams.findByPk(awayTeamId);
-    if (!htid || !atid) {
+    const home = await Teams.findByPk(homeTeamId);
+    const away = await Teams.findByPk(awayTeamId);
+    if (!home || !away) {
       return res.status(404).json({ message: 'There is no team with such id!' });
     }
     const newMatch = await MatchesService.createMatch(req.body);
