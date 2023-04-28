@@ -5,7 +5,7 @@ import MatchesService from '../services/Matches';
 export default class MatchesController {
   static async getMatches(req: Request, res: Response): Promise< Response | void> {
     const { inProgress } = req.query;
-    console.log('estou aqui', inProgress);
+    // console.log('estou aqui', inProgress);
     if (inProgress === undefined) {
       const matches = await MatchesService.getAllMatches();
       return res.status(200).json(matches);

@@ -1,6 +1,8 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import chaiHttp from 'chai-http';
+// import chaiHttp from 'chai-http';
+// @ts-ignore
+import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Teams from '../database/models/Teams';
@@ -17,13 +19,13 @@ describe('GET /teams', () => {
 
     
     describe('quando a requisição da certo', () => {
-        
+
         afterEach(() => { sinon.restore() });
 
         it('deve retornar um status 200 quando fizer a requisição de todos os times na rota /teams', async () => {
             let chaihtppResponse: Response;
 
-            const findStub = sinon.stub(Model, 'findAll').resolves(validAllTeams)
+            const findStub = sinon.stub(Model, 'findAll').resolves(validAllTeams as unknown as Teams[])
             const htppResponse = await chai.request(app).post('/teams')
 
             expect(htppResponse.status).to.equal(200)
@@ -36,7 +38,7 @@ describe('GET /teams', () => {
         it('deve retornar um status 200 quando fizer a requisição de um time pelo ID na rota /teams/:id', async () => {
             let chaihtppResponse: Response;
 
-            const findStub = sinon.stub(Model, 'findByPk').resolves(validOneTeam)
+            const findStub = sinon.stub(Model, 'findByPk').resolves(validOneTeam as unknown as Teams)
             const htppResponse = await chai.request(app).post('/teams/:id')
 
             expect(htppResponse.status).to.equal(200)
