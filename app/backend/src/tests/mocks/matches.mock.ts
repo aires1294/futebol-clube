@@ -41,6 +41,17 @@ export const validOneMatch = [
       }
 ]
 
+export const validOneMatchFalse = [
+  {
+      "id": 49,
+      "homeTeamId": 14,
+      "awayTeamId": 16,
+      "homeTeamGoals": 15,
+      "awayTeamGoals": 2,
+      "inProgress": false
+    }
+]
+
 export const validMatchesTrue = [
   {
     "id": 39,
