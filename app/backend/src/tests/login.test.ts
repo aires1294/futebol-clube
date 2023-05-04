@@ -24,7 +24,7 @@ describe('POST /login', () => {
             // CONFERIR O /teams
             const htppResponse = await chai.request(app).post('/login').send(validEmail)
             expect(htppResponse.status).to.equal(400)
-            expect(htppResponse.body).to.equal({ message: 'All fields must be filled'})
+            expect(htppResponse.body).to.be.deep.equal({ message: 'All fields must be filled'})
         })
     })
 
@@ -32,7 +32,7 @@ describe('POST /login', () => {
         // CONFERIR O /teams
         const htppResponse = await chai.request(app).post('/login').send(validPassword)
         expect(htppResponse.status).to.equal(400)
-        expect(htppResponse.body).to.equal({ message: 'All fields must be filled'})
+        expect(htppResponse.body).to.be.deep.equal({ message: 'All fields must be filled'})
 
     })
 
@@ -40,14 +40,14 @@ describe('POST /login', () => {
         // CONFERIR O /teams
         const htppResponse = await chai.request(app).post('/login').send(invalidPassword)
         expect(htppResponse.status).to.equal(401)
-        expect(htppResponse.body).to.equal({ message: 'Invalid email or password'})
+        expect(htppResponse.body).to.be.deep.equal({ message: 'Invalid email or password'})
     })
 
     it('deve retornar um status 401 quando email for invalido', async () => {
         // CONFERIR O /teams
         const htppResponse = await chai.request(app).post('/login').send(inValidEmail)
         expect(htppResponse.status).to.equal(401)
-        expect(htppResponse.body).to.equal({ message: 'Invalid email or password'})
+        expect(htppResponse.body).to.be.deep.equal({ message: 'Invalid email or password'})
 
     })
 

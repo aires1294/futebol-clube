@@ -29,7 +29,7 @@ describe('GET /teams', () => {
             const htppResponse = await chai.request(app).post('/teams')
 
             expect(htppResponse.status).to.equal(200)
-            expect(htppResponse.body).to.equal(validAllTeams)
+            expect(htppResponse.body).to.be.deep.equal(validAllTeams)
 
             findStub.restore();
 
@@ -42,7 +42,7 @@ describe('GET /teams', () => {
             const htppResponse = await chai.request(app).post('/teams/:id')
 
             expect(htppResponse.status).to.equal(200)
-            expect(htppResponse.body).to.equal(validOneTeam)
+            expect(htppResponse.body).to.be.deep.equal(validOneTeam)
 
             findStub.restore();
 
