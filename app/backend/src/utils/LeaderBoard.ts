@@ -19,19 +19,6 @@ const getTeamsHome = (match: IMatchesName, home: boolean) => {
   }
 };
 
-// const getTeamsHome = (match: IMatchesName, home: boolean) => {
-//   const homeTeams = allTeams.map((match) => this.getFilterSats(team.id, 'home'));
-//   const homeTeamsResult = await Promise.all(homeTeams);
-//   return homeTeamsResult;
-// };
-
-// public async getTeamsHome(): Promise<ILeaderBoard[]> {
-//     const allTeams = await this.teamService.getMatches();
-//     const homeTeams = allTeams.map((team) => this.filterStatsType(team.id, 'home'));
-//     const homeTeamsResult = await Promise.all(homeTeams);
-//     return homeTeamsResult;
-// }
-
 const getPoints = (match: IMatchesName, home: boolean) => {
   if (home) {
     if (match.homeTeamGoals > match.awayTeamGoals) return 3;
