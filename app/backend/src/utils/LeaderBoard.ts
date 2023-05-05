@@ -41,8 +41,7 @@ const getLeaderBoard = (matches: IMatchesName[], home: boolean): ILeaderBoard =>
   matches.reduce((acc: ILeaderBoard, match: IMatchesName) => {
     const points = getPoints(match, home);
     const teamName = getTeamsHome(match, home);
-    const {
-      totalGames,
+    const { totalGames,
       totalVictories, totalDraws, totalLosses, totalPoints, goalsOwn, goalsFavor } = acc;
     return {
       name: teamName,
@@ -53,8 +52,13 @@ const getLeaderBoard = (matches: IMatchesName[], home: boolean): ILeaderBoard =>
       totalLosses: totalLosses + (points === 0 ? 1 : 0),
       goalsOwn: goalsOwn + getGoals(match, home, false),
       goalsFavor: goalsFavor + getGoals(match, home, true),
-      goalsBalance: goalsFavor - goalsOwn,
-      efficiency: (totalPoints / (totalGames * 3)) * 100,
+      goalsBalance: (goalsFavor + getGoals(match, home, true))
+      - (goalsOwn + getGoals(match, home, false)),
+      //   efficiency: Math.round((totalPoints / (totalGames * 3)) * 100),
+      efficiency: Number((((totalPoints + points) / ((totalGames + 1) * 3)) * 100).toFixed(2)),
+      //   efficiency: ((totalPoints / (totalGames * 3)) * 100),
+      //   efficiency,
+
     };
   }, utilsLeaderBoard);
 
@@ -78,5 +82,10 @@ const getFilterSats = (matches: IMatchesName[], home: boolean): ILeaderBoard[] =
 
     return [...acc, teamStats];
   }, []);
+
+// const efficiency = (team: ILeaderBoard) => {
+//   const result = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
+//   return result;
+// };
 
 export { getLeaderBoard, sortedLeaderboard, getFilterSats };
