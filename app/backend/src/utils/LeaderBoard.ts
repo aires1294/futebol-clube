@@ -11,6 +11,8 @@ const utilsLeaderBoard: ILeaderBoard = {
   totalLosses: 0,
   goalsFavor: 0,
   goalsOwn: 0,
+  goalsBalance: 0,
+  efficiency: 0,
 };
 
 const getTeamsHome = (match: IMatchesName, home: boolean) => {
@@ -51,6 +53,8 @@ const getLeaderBoard = (matches: IMatchesName[], home: boolean): ILeaderBoard =>
       totalLosses: totalLosses + (points === 0 ? 1 : 0),
       goalsOwn: goalsOwn + getGoals(match, home, false),
       goalsFavor: goalsFavor + getGoals(match, home, true),
+      goalsBalance: goalsFavor - goalsOwn,
+      efficiency: (totalPoints / (totalGames * 3)) * 100,
     };
   }, utilsLeaderBoard);
 
