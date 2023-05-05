@@ -35,9 +35,10 @@ const getTeamsHome = (match: IMatchesName, home: boolean) => {
 const getPoints = (match: IMatchesName, home: boolean) => {
   if (home) {
     if (match.homeTeamGoals > match.awayTeamGoals) return 3;
-    if (match.homeTeamGoals === match.awayTeamGoals) return 1;
+    // if (match.homeTeamGoals === match.awayTeamGoals) return 1;
     if (match.homeTeamGoals < match.awayTeamGoals) return 0;
   }
+  return 1;
 };
 
 const getGoals = (match: IMatchesName, home: boolean, favor: boolean) => {
@@ -57,10 +58,10 @@ const getLeaderBoard = (matches: IMatchesName[], home: boolean): ILeaderBoard =>
     return {
       name: teamName,
       totalGames: totalGames + 1,
+      totalPoints: totalPoints + points,
       totalVictories: totalVictories + (points === 3 ? 1 : 0),
       totalDraws: totalDraws + (points === 1 ? 1 : 0),
       totalLosses: totalLosses + (points === 0 ? 1 : 0),
-      totalPoints: totalPoints + points,
       goalsOwn: goalsOwn + getGoals(match, home, false),
       goalsFavor: goalsFavor + getGoals(match, home, true),
     };

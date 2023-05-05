@@ -9,6 +9,7 @@ import { validateLoginBody,
 // import ValidationToken from './Authentication/token';
 import TeamRouter from './Router/Teams';
 import MatchesRouter from './Router/Matches';
+import LeaderboardRouter from './Router/Leaderboard';
 
 class App {
   public app: express.Express;
@@ -31,19 +32,17 @@ class App {
     };
     this.app.use(express.json());
     this.app.use(accessControl);
+
     this.app.use('/teams', TeamRouter);
+
     this.app.use('/matches', MatchesRouter);
 
-    this.app.post(
-      '/login',
-      validateLoginBody,
-      validateEmail,
-      validatePassword,
-      UsersController.login,
-    );
+    this.app.use('/leaderboard/home', LeaderboardRouter);
+
+    this.app.post('/login', validateLoginBody, validateEmail, validatePassword, UsersController
+      .login);
+
     this.app.get('/login/role', validateAuth, UsersController.getRole);
-    // this.app.get('/matches', MatchesController.getAllMatches);
-    // this.app.get('/matches', MatchesController.getMatches);
   }
 
   public start(PORT: string | number):void {

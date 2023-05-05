@@ -4,6 +4,6 @@ import LeaderBoardController from '../controllers/LeaderBoard';
 const LeaderboardRouter = Router();
 
 LeaderboardRouter.get('/', (req: Request, res: Response) => LeaderBoardController
-  .getAllLeader(req, res));
+  .getHomeLeaderboard(req, res));
 
 export default LeaderboardRouter;
