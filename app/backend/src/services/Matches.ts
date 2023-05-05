@@ -35,9 +35,9 @@ export default class MatchesService {
     return matches;
   }
 
-  static async getMatches(inProgress?: boolean): Promise<Matches[]> {
+  public static async getMatches(inProgress?: boolean): Promise<Matches[]> {
     const filteredMatches = inProgress ? { inProgress } : { inProgress: false };
-    console.log('testandoo', filteredMatches);
+    // console.log('testandoo', filteredMatches);
 
     const matches = await Matches.findAll({
       where: filteredMatches,

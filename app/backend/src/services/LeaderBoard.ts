@@ -1,13 +1,20 @@
+import { IMatchesName } from '../interfaces/IMatchesNames';
 import ILeaderBoard from '../interfaces/ILeaderBoard';
-import Teams from '../database/models/Teams';
-import TeamsService from './Teams';
+import { getFilterSats, sortedLeaderboard } from '../utils/LeaderBoard';
 import MatchesService from './Matches';
-import { sortedLeaderboard } from '../utils/LeaderBoard';
 
-const LeaderBoardService = {
-  async home() {
-    const allMatches = await MatchesService.fetchInProgress(false);
-    const teamsLeaderboardHome = getStatus(allMatches, true);
+// export default class LeaderBoardService = {
+//   async home() {
+//     const matches = await MatchesService.getMatches(false);
+//     const teamsHome = getFilterSats(matches, true);
+//     return sortedLeaderboard(teamsHome);
+//   },
+// };
+
+export default class LeaderboardService {
+  public static async getHomeLeaderboard(): Promise<ILeaderBoard[]> {
+    const matches: IMatchesName[] = await MatchesService.getMatches(false);
+    const teamsLeaderboardHome: ILeaderBoard[] = getFilterSats(matches, true);
     return sortedLeaderboard(teamsLeaderboardHome);
-  },
-};
+  }
+}
