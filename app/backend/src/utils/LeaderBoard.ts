@@ -94,4 +94,38 @@ const getFilterSats = (matches: IMatchesName[], home: boolean): ILeaderBoard[] =
     return [...acc, teamStats];
   }, []);
 
-export { getLeaderBoard, sortedLeaderboard, getFilterSats };
+const baseLeaderBoard: ILeaderBoard = {
+  name: '',
+  totalPoints: 0,
+  totalGames: 0,
+  totalVictories: 0,
+  totalDraws: 0,
+  totalLosses: 0,
+  goalsFavor: 0,
+  goalsOwn: 0,
+  goalsBalance: 0,
+  efficiency: 0,
+};
+
+const totalLeaderboard = (home: ILeaderBoard[], away: ILeaderBoard[]): ILeaderBoard[] =>
+  home.map((homeTeam: ILeaderBoard) => {
+    const tryFetch = away.find(({ name }) => name === homeTeam.name);
+    const awayTeam: ILeaderBoard = tryFetch || baseLeaderBoard;
+    const stats: ILeaderBoard = {
+      name: homeTeam.name,
+      totalGames: homeTeam.totalGames + awayTeam.totalGames,
+      totalDraws: homeTeam.totalDraws + awayTeam.totalDraws,
+      totalLosses: homeTeam.totalLosses + awayTeam.totalLosses,
+      totalPoints: homeTeam.totalPoints + awayTeam.totalPoints,
+      totalVictories: homeTeam.totalVictories + awayTeam.totalVictories,
+      goalsFavor: homeTeam.goalsFavor + awayTeam.goalsFavor,
+      goalsOwn: homeTeam.goalsOwn + awayTeam.goalsOwn,
+      goalsBalance: (homeTeam.goalsFavor + awayTeam.goalsFavor)
+      - (homeTeam.goalsOwn + awayTeam.goalsOwn),
+      efficiency: Number((((homeTeam.totalPoints + awayTeam.totalPoints)
+      / ((homeTeam.totalGames + awayTeam.totalGames) * 3)) * 100).toFixed(2)),
+    };
+    return stats;
+  });
+
+export { getLeaderBoard, sortedLeaderboard, getFilterSats, totalLeaderboard };

@@ -1,6 +1,6 @@
 import { IMatchesName } from '../interfaces/IMatchesNames';
 import ILeaderBoard from '../interfaces/ILeaderBoard';
-import { getFilterSats, sortedLeaderboard } from '../utils/LeaderBoard';
+import { getFilterSats, sortedLeaderboard, totalLeaderboard } from '../utils/LeaderBoard';
 import MatchesService from './Matches';
 
 export default class LeaderboardService {
@@ -14,5 +14,13 @@ export default class LeaderboardService {
     const matches: IMatchesName[] = await MatchesService.getMatches(false);
     const teamsLeaderboardAway: ILeaderBoard[] = getFilterSats(matches, false);
     return sortedLeaderboard(teamsLeaderboardAway);
+  }
+
+  public static async leaderBoard(): Promise<ILeaderBoard[]> {
+    const matches: IMatchesName[] = await MatchesService.getMatches(false);
+    const teamsLeaderboardHome: ILeaderBoard[] = getFilterSats(matches, true);
+    const teamsLeaderboardAway: ILeaderBoard[] = getFilterSats(matches, false);
+    const result = totalLeaderboard(teamsLeaderboardHome, teamsLeaderboardAway);
+    return sortedLeaderboard(result);
   }
 }
