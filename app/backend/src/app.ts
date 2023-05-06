@@ -37,9 +37,7 @@ class App {
 
     this.app.use('/matches', MatchesRouter);
 
-    this.app.use('/leaderboard/home', LeaderboardRouter);
-
-    this.app.use('/leaderboard/away', LeaderboardRouter);
+    this.app.use('/leaderboard', LeaderboardRouter);
 
     this.app.post('/login', validateLoginBody, validateEmail, validatePassword, UsersController
       .login);

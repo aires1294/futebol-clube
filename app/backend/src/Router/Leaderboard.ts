@@ -3,10 +3,10 @@ import LeaderBoardController from '../controllers/LeaderBoard';
 
 const LeaderboardRouter = Router();
 
-LeaderboardRouter.get('/', (req: Request, res: Response) => LeaderBoardController
+LeaderboardRouter.get('/home', (req: Request, res: Response) => LeaderBoardController
   .getHomeLeaderboard(req, res));
 
-LeaderboardRouter.get('/', (req: Request, res: Response) => LeaderBoardController
+LeaderboardRouter.get('/away', (req: Request, res: Response) => LeaderBoardController
   .getAwayLeaderboard(req, res));
 
 export default LeaderboardRouter;

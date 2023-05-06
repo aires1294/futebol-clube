@@ -18,15 +18,25 @@ const utilsLeaderBoard: ILeaderBoard = {
 const getTeamsHome = (match: IMatchesName, home: boolean) => {
   if (home) {
     return match.homeTeam?.teamName;
-  }
-  return match.awayTeam?.teamName;
+  } return match.awayTeam?.teamName;
 };
+
+// const getPoints = (match: IMatchesName, home: boolean) => {
+//   if (home) {
+//     if (match.homeTeamGoals > match.awayTeamGoals) return 3;
+//     // if (match.homeTeamGoals === match.awayTeamGoals) return 1;
+//     if (match.homeTeamGoals < match.awayTeamGoals) return 0;
+//   }
+//   return 1;
+// };
 
 const getPoints = (match: IMatchesName, home: boolean) => {
   if (home) {
     if (match.homeTeamGoals > match.awayTeamGoals) return 3;
-    // if (match.homeTeamGoals === match.awayTeamGoals) return 1;
     if (match.homeTeamGoals < match.awayTeamGoals) return 0;
+  } else {
+    if (match.homeTeamGoals < match.awayTeamGoals) return 3;
+    if (match.homeTeamGoals > match.awayTeamGoals) return 0;
   }
   return 1;
 };
@@ -84,34 +94,4 @@ const getFilterSats = (matches: IMatchesName[], home: boolean): ILeaderBoard[] =
     return [...acc, teamStats];
   }, []);
 
-// const efficiency = (team: ILeaderBoard) => {
-//   const result = Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2));
-//   return result;
-// };
-
-const getAwayLeaderBoard = (matches: IMatchesName[], away: boolean): ILeaderBoard =>
-  matches.reduce((acc: ILeaderBoard, match: IMatchesName) => {
-    const points = getPoints(match, away);
-    const teamName = getTeamsHome(match, away);
-    const { totalGames,
-      totalVictories, totalDraws, totalLosses, totalPoints, goalsOwn, goalsFavor } = acc;
-    return {
-      name: teamName,
-      totalGames: totalGames + 1,
-      totalPoints: totalPoints + points,
-      totalVictories: totalVictories + (points === 3 ? 1 : 0),
-      totalDraws: totalDraws + (points === 1 ? 1 : 0),
-      totalLosses: totalLosses + (points === 0 ? 1 : 0),
-      goalsOwn: goalsOwn + getGoals(match, away, false),
-      goalsFavor: goalsFavor + getGoals(match, away, true),
-      goalsBalance: (goalsFavor + getGoals(match, away, true))
-      - (goalsOwn + getGoals(match, away, false)),
-      //   efficiency: Math.round((totalPoints / (totalGames * 3)) * 100),
-      efficiency: Number((((totalPoints + points) / ((totalGames + 1) * 3)) * 100).toFixed(2)),
-      //   efficiency: ((totalPoints / (totalGames * 3)) * 100),
-      //   efficiency,
-
-    };
-  }, utilsLeaderBoard);
-
-export { getLeaderBoard, sortedLeaderboard, getFilterSats, getAwayLeaderBoard };
+export { getLeaderBoard, sortedLeaderboard, getFilterSats };
