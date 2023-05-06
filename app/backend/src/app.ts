@@ -39,6 +39,8 @@ class App {
 
     this.app.use('/leaderboard/home', LeaderboardRouter);
 
+    this.app.use('/leaderboard/away', LeaderboardRouter);
+
     this.app.post('/login', validateLoginBody, validateEmail, validatePassword, UsersController
       .login);
 

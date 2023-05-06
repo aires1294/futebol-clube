@@ -9,4 +9,10 @@ export default class LeaderboardService {
     const teamsLeaderboardHome: ILeaderBoard[] = getFilterSats(matches, true);
     return sortedLeaderboard(teamsLeaderboardHome);
   }
+
+  public static async getAwayLeaderboard(): Promise<ILeaderBoard[]> {
+    const matches: IMatchesName[] = await MatchesService.getMatches(false);
+    const teamsLeaderboardAway: ILeaderBoard[] = getFilterSats(matches, false);
+    return sortedLeaderboard(teamsLeaderboardAway);
+  }
 }
